@@ -1,13 +1,17 @@
 (() => {
     'use strict';
 
-    // ADICIONA CONTROLADORES
-    let carouselElement = document.querySelectorAll('.carousel');
+    let carouselElements = document.querySelectorAll('.carousel');
+    let carouselItems = [];
+    let dots = [];
+    let buttonPrev = '';
+    let buttonNext = '';
+    
+    carouselElements.forEach((carousel) => {
 
-    carouselElement.forEach((el, i) => {
-        let carouselItems = el.querySelectorAll('.item');
+        carouselItems = carousel.querySelectorAll('.item');
         
-        el.innerHTML += 
+        carousel.innerHTML += 
         `
             <div class="carousel__btn-controls">
                 <button type="button" class="carousel__btn-controls__bt prev">
@@ -23,29 +27,30 @@
         `;
     
         for(let i = 0; i < carouselItems.length; i++) {
-            el.querySelector('.carousel__dots').innerHTML += `<li></li>`;
+            carousel.querySelector('.carousel__dots').innerHTML += `<li></li>`;
         }
 
-        // ADICIONA FUNCIONALIDADES DOS CONTROLADORES
-        let dots = el.querySelectorAll('li');
-        let buttonPrev = el.querySelector('.carousel__btn-controls .prev');
-        let buttonNext = el.querySelector('.carousel__btn-controls .next');
+        dots = carousel.querySelectorAll('li');
+        buttonPrev = carousel.querySelector('.carousel__btn-controls .prev');
+        buttonNext = carousel.querySelector('.carousel__btn-controls .next');
 
-        carouselItems.forEach((item, index, array) => {
-            dots[index].addEventListener('click', () => {
+        dots.forEach((el, i, arr) => {
+            arr[0].classList.add('active');
+            carouselItems[0].classList.add('active');
 
-                array.forEach((arrayItem) => {
-                    arrayItem.classList.remove('active');
+
+            console.log(carouselItems[i].classList)
+            
+            el.addEventListener('click', () => {
+                arr.forEach((dotEl) => {
+                    dotEl.classList.remove('active');
                 });
-
-                dots.forEach((dotElement) => {
-                    dotElement.classList.remove('active');
-                });
-
-                dots[index].classList.add('active');
-                //item.classList.add('active');
+    
+                el.classList.add('active');
             });
         });
     });
+
+    
 
 })();
